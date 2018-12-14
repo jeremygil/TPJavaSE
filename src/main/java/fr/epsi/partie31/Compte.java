@@ -1,13 +1,15 @@
-package fr.epsi.partie14;
+package fr.epsi.partie31;
+
+import java.util.ArrayList;
 
 public class Compte {
-    private static int sommeDepots;
-    private static int sommeRetraits;
-    private static int decouvert;
+    private static ArrayList<Integer> depots;
+    private static ArrayList<Integer> retraits;
+    private static int                decouvert;
 
     public Compte() {
-        this.setSommeDepots( 0 );
-        this.setSommeRetraits( 0 );
+        depots = new ArrayList<Integer>();
+        retraits = new ArrayList<Integer>();
     }
 
     public Compte( int pDecouvert ) {
@@ -16,12 +18,12 @@ public class Compte {
     }
 
     public static void depotDe( int montant ) {
-        sommeDepots += montant;
+        depots.add( montant );
     }
 
     public static boolean verifDecouvert( int montant ) {
         boolean test = false;
-        if ( montant > ( sommeDepots + decouvert - sommeRetraits ) ) {
+        if ( montant > ( getSommeDepots() + decouvert - getSommeRetraits() ) ) {
             test = false;
         } else {
             test = true;
@@ -32,7 +34,7 @@ public class Compte {
     public static String retraitDe( int montant ) {
         String chaine = "";
         if ( verifDecouvert( montant ) ) {
-            sommeRetraits += montant;
+            retraits.add( montant );
             chaine = "Retrait éffectué !";
         } else {
             chaine = "Le retrait est impossible car vous êtes à découvert !";
@@ -40,20 +42,20 @@ public class Compte {
         return chaine;
     }
 
-    public static void setSommeDepots( int sommeDepots ) {
-        Compte.sommeDepots = sommeDepots;
-    }
-
-    public static void setSommeRetraits( int sommeRetraits ) {
-        Compte.sommeRetraits = sommeRetraits;
-    }
-
     public static int getSommeDepots() {
-        return sommeDepots;
+        int somme = 0;
+        for ( int sommeDep : depots ) {
+            somme += sommeDep;
+        }
+        return somme;
     }
 
     public static int getSommeRetraits() {
-        return sommeRetraits;
+        int somme = 0;
+        for ( int sommeRet : retraits ) {
+            somme += sommeRet;
+        }
+        return somme;
     }
 
     public static int getSolde() {

@@ -1,13 +1,15 @@
-package fr.epsi.partie14;
+package fr.epsi.partie41;
+
+import java.util.ArrayList;
 
 public class Compte {
-    private static int sommeDepots;
-    private static int sommeRetraits;
-    private static int decouvert;
+    private static ArrayList<Mouvement> depots;
+    private static ArrayList<Mouvement> retraits;
+    private static int                  decouvert;
 
     public Compte() {
-        this.setSommeDepots( 0 );
-        this.setSommeRetraits( 0 );
+        depots = new ArrayList<Mouvement>();
+        retraits = new ArrayList<Mouvement>();
     }
 
     public Compte( int pDecouvert ) {
@@ -16,12 +18,12 @@ public class Compte {
     }
 
     public static void depotDe( int montant ) {
-        sommeDepots += montant;
+        depots.add( new Mouvement( montant, "depot" ) );
     }
 
     public static boolean verifDecouvert( int montant ) {
         boolean test = false;
-        if ( montant > ( sommeDepots + decouvert - sommeRetraits ) ) {
+        if ( montant > ( getSommeDepots() + decouvert - getSommeRetraits() ) ) {
             test = false;
         } else {
             test = true;
@@ -31,8 +33,9 @@ public class Compte {
 
     public static String retraitDe( int montant ) {
         String chaine = "";
+
         if ( verifDecouvert( montant ) ) {
-            sommeRetraits += montant;
+            retraits.add( new Mouvement( montant, "retrait" ) );
             chaine = "Retrait éffectué !";
         } else {
             chaine = "Le retrait est impossible car vous êtes à découvert !";
@@ -40,20 +43,21 @@ public class Compte {
         return chaine;
     }
 
-    public static void setSommeDepots( int sommeDepots ) {
-        Compte.sommeDepots = sommeDepots;
-    }
-
-    public static void setSommeRetraits( int sommeRetraits ) {
-        Compte.sommeRetraits = sommeRetraits;
-    }
-
     public static int getSommeDepots() {
-        return sommeDepots;
+        int somme = 0;
+        for ( Mouvement sommeDep : depots ) {
+            somme += sommeDep.getMontant();
+        }
+        return somme;
     }
 
     public static int getSommeRetraits() {
-        return sommeRetraits;
+        int somme = 0;
+        for ( Mouvement sommeRet : retraits ) {
+            somme += sommeRet.getMontant();
+        }
+        System.out.println( "getSommeretrait somme : " + somme );
+        return somme;
     }
 
     public static int getSolde() {

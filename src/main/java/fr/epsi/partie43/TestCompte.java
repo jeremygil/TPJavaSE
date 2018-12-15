@@ -1,4 +1,4 @@
-package fr.epsi.partie42;
+package fr.epsi.partie43;
 
 public class TestCompte {
 
@@ -27,6 +27,7 @@ public class TestCompte {
 
         System.out.println( compte.retraitDe( 800 ) );
         System.out.println( "Votre nouveau solde est de  " + compte.getSolde() + "€" );
+
     }
 
 }

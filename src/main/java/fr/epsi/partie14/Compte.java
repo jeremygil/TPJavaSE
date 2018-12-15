@@ -21,7 +21,7 @@ public class Compte {
 
     public static boolean verifDecouvert( int montant ) {
         boolean test = false;
-        if ( montant > ( sommeDepots + decouvert - sommeRetraits ) ) {
+        if ( montant > ( getSolde() + decouvert ) ) {
             test = false;
         } else {
             test = true;
@@ -33,7 +33,7 @@ public class Compte {
         String chaine = "";
         if ( verifDecouvert( montant ) ) {
             sommeRetraits += montant;
-            chaine = "Retrait éffectué !";
+            chaine = "Retrait effectué !";
         } else {
             chaine = "Le retrait est impossible car vous êtes à découvert !";
         }

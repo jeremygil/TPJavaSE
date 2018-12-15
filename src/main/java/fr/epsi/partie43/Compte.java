@@ -1,15 +1,13 @@
-package fr.epsi.partie41;
+package fr.epsi.partie43;
 
 import java.util.ArrayList;
 
 public class Compte {
-    private ArrayList<Mouvement> depots;
-    private ArrayList<Mouvement> retraits;
+    private ArrayList<Mouvement> historique;
     private int                  decouvert;
 
     public Compte() {
-        depots = new ArrayList<Mouvement>();
-        retraits = new ArrayList<Mouvement>();
+        historique = new ArrayList<Mouvement>();
     }
 
     public Compte( int pDecouvert ) {
@@ -18,7 +16,7 @@ public class Compte {
     }
 
     public void depotDe( int montant ) {
-        depots.add( new Mouvement( montant, "depot" ) );
+        historique.add( new Depot( montant ) );
     }
 
     public boolean verifDecouvert( int montant ) {
@@ -35,8 +33,8 @@ public class Compte {
         String chaine = "";
 
         if ( verifDecouvert( montant ) ) {
-            retraits.add( new Mouvement( montant, "retrait" ) );
-            chaine = "Retrait éffectué !";
+            historique.add( new Retrait( montant ) );
+            chaine = "Retrait effectué !";
         } else {
             chaine = "Le retrait est impossible car vous êtes à découvert !";
         }
@@ -45,17 +43,22 @@ public class Compte {
 
     public int getSommeDepots() {
         int somme = 0;
-        for ( Mouvement sommeDep : depots ) {
-            somme += sommeDep.getMontant();
+        for ( Mouvement sommeDep : historique ) {
+            if ( sommeDep instanceof Depot ) {
+                somme += sommeDep.getMontant();
+            }
         }
         return somme;
     }
 
     public int getSommeRetraits() {
         int somme = 0;
-        for ( Mouvement sommeRet : retraits ) {
-            somme += sommeRet.getMontant();
+        for ( Mouvement sommeRet : historique ) {
+            if ( sommeRet instanceof Retrait ) {
+                somme += sommeRet.getMontant();
+            }
         }
+
         return somme;
     }
 

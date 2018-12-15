@@ -3,9 +3,9 @@ package fr.epsi.partie31;
 import java.util.ArrayList;
 
 public class Compte {
-    private static ArrayList<Integer> depots;
-    private static ArrayList<Integer> retraits;
-    private static int                decouvert;
+    private ArrayList<Integer> depots;
+    private ArrayList<Integer> retraits;
+    private int                decouvert;
 
     public Compte() {
         depots = new ArrayList<Integer>();
@@ -17,13 +17,13 @@ public class Compte {
         this.setDecouvert( pDecouvert );
     }
 
-    public static void depotDe( int montant ) {
+    public void depotDe( int montant ) {
         depots.add( montant );
     }
 
-    public static boolean verifDecouvert( int montant ) {
+    public boolean verifDecouvert( int montant ) {
         boolean test = false;
-        if ( montant > ( getSommeDepots() + decouvert - getSommeRetraits() ) ) {
+        if ( montant > ( getSolde() + decouvert ) ) {
             test = false;
         } else {
             test = true;
@@ -31,7 +31,7 @@ public class Compte {
         return test;
     }
 
-    public static String retraitDe( int montant ) {
+    public String retraitDe( int montant ) {
         String chaine = "";
         if ( verifDecouvert( montant ) ) {
             retraits.add( montant );
@@ -42,7 +42,7 @@ public class Compte {
         return chaine;
     }
 
-    public static int getSommeDepots() {
+    public int getSommeDepots() {
         int somme = 0;
         for ( int sommeDep : depots ) {
             somme += sommeDep;
@@ -50,7 +50,7 @@ public class Compte {
         return somme;
     }
 
-    public static int getSommeRetraits() {
+    public int getSommeRetraits() {
         int somme = 0;
         for ( int sommeRet : retraits ) {
             somme += sommeRet;
@@ -58,15 +58,15 @@ public class Compte {
         return somme;
     }
 
-    public static int getSolde() {
+    public int getSolde() {
         return ( getSommeDepots() - getSommeRetraits() );
     }
 
-    public static void setDecouvert( int pDecouvert ) {
+    public void setDecouvert( int pDecouvert ) {
         decouvert = pDecouvert;
     }
 
-    public static int getDecouvert() {
+    public int getDecouvert() {
         return decouvert;
     }
 }

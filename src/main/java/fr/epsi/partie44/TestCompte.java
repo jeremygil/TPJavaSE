@@ -1,4 +1,4 @@
-package fr.epsi.partie42;
+package fr.epsi.partie44;
 
 public class TestCompte {
 

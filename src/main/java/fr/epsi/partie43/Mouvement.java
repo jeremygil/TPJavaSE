@@ -1,17 +1,14 @@
-package fr.epsi.partie41;
+package fr.epsi.partie43;
 
 import java.util.Date;
 
 public class Mouvement {
+    private int  montant;
+    private Date dateMvt;
 
-    private int    montant;
-    private Date   dateMvt;
-    private String typeMvt;
-
-    public Mouvement( int pMontant, String pTypeMvt ) {
+    public Mouvement( int pMontant ) {
         this.montant = pMontant;
         setDateMvt( new java.util.Date() );
-        this.typeMvt = pTypeMvt;
     }
 
     public int getMontant() {
@@ -30,11 +27,4 @@ public class Mouvement {
         this.dateMvt = dateMvt;
     }
 
-    public String getTypeMvt() {
-        return typeMvt;
-    }
-
-    public void setTypeMvt( String typeMvt ) {
-        this.typeMvt = typeMvt;
-    }
 }

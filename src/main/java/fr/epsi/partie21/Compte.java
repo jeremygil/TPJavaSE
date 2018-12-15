@@ -1,11 +1,11 @@
 package fr.epsi.partie21;
 
 public class Compte {
-    private static int[] depots;
-    private static int[] retraits;
-    private static int   decouvert;
-    private static int   iDepots;
-    private static int   iRetraits;
+    private int[] depots;
+    private int[] retraits;
+    private int   decouvert;
+    private int   iDepots;
+    private int   iRetraits;
 
     public Compte() {
         depots = new int[15];
@@ -19,30 +19,30 @@ public class Compte {
         this.setDecouvert( pDecouvert );
     }
 
-    public static int getiDepots() {
+    public int getiDepots() {
         return iDepots;
     }
 
-    public static void setiDepots( int iDepots ) {
-        Compte.iDepots = iDepots;
+    public void setiDepots( int iDepots ) {
+        this.iDepots = iDepots;
     }
 
-    public static int getiRetraits() {
+    public int getiRetraits() {
         return iRetraits;
     }
 
-    public static void setiRetraits( int iRetraits ) {
-        Compte.iRetraits = iRetraits;
+    public void setiRetraits( int iRetraits ) {
+        this.iRetraits = iRetraits;
     }
 
-    public static void depotDe( int montant ) {
+    public void depotDe( int montant ) {
         depots[iDepots] = montant;
         iDepots++;
     }
 
-    public static boolean verifDecouvert( int montant ) {
+    public boolean verifDecouvert( int montant ) {
         boolean test = false;
-        if ( montant > ( getSommeDepots() + decouvert - getSommeRetraits() ) ) {
+        if ( montant > ( getSolde() + decouvert ) ) {
             test = false;
         } else {
             test = true;
@@ -50,7 +50,7 @@ public class Compte {
         return test;
     }
 
-    public static String retraitDe( int montant ) {
+    public String retraitDe( int montant ) {
         String chaine = "";
         if ( verifDecouvert( montant ) ) {
             retraits[iRetraits] = montant;
@@ -62,7 +62,7 @@ public class Compte {
         return chaine;
     }
 
-    public static int getSommeDepots() {
+    public int getSommeDepots() {
         int somme = 0;
         for ( int sommeDep : depots ) {
             somme += sommeDep;
@@ -70,7 +70,7 @@ public class Compte {
         return somme;
     }
 
-    public static int getSommeRetraits() {
+    public int getSommeRetraits() {
         int somme = 0;
         for ( int sommeRet : retraits ) {
             somme += sommeRet;
@@ -78,15 +78,15 @@ public class Compte {
         return somme;
     }
 
-    public static int getSolde() {
+    public int getSolde() {
         return ( getSommeDepots() - getSommeRetraits() );
     }
 
-    public static void setDecouvert( int pDecouvert ) {
+    public void setDecouvert( int pDecouvert ) {
         decouvert = pDecouvert;
     }
 
-    public static int getDecouvert() {
+    public int getDecouvert() {
         return decouvert;
     }
 }
